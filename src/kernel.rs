@@ -45,7 +45,7 @@ pub fn grayscale_rgba(pixels: &mut [u8]) -> Result<(), NotRgba> {
     if !pixels.len().is_multiple_of(4) {
         return Err(NotRgba { len: pixels.len() });
     }
-    for pixel in pixels.chunks_exact_mut(4) {
+    for pixel in pixels.as_chunks_mut::<4>().0 {
         let y = luma(pixel[0], pixel[1], pixel[2]);
         pixel[..3].fill(y);
     }
