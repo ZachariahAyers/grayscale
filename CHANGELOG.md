@@ -9,14 +9,13 @@
 
 ## 2.0.0
 
-Built on the current toolchain: upload a PNG, see it in grayscale.
+Converts a PNG to grayscale in the browser with a tested Rust kernel compiled to WebAssembly; nothing leaves the device.
 
 - Rust edition 2024, with the toolchain pinned to an exact version in `rust-toolchain.toml`.
-- The kernel works on raw RGBA pixels. The browser decodes and encodes the image, so the `image` and `base64` crates and the base64 round trip are gone.
-- Invalid input throws a JavaScript error instead of panicking the module.
+- The kernel works on raw RGBA pixels; the browser decodes and encodes the image.
+- Invalid input throws a JavaScript error; the module never panics on it.
 - Unit tests for the kernel, plus wasm-bindgen tests for the exported function.
-- TypeScript front end on Vite, replacing JavaScript on webpack.
-- Hand-written CSS replaces the Tailwind v2 CDN stylesheet. The heading font is bundled, so no third-party requests are made.
-- The upload control works from the keyboard. Errors are announced in a live status line. Animation stops under reduced motion. Dark mode is supported.
+- TypeScript front end on Vite.
+- Hand-written CSS with a bundled heading font, so no third-party requests are made.
+- The file control works from the keyboard. Errors are announced in a live status line. Animation stops under reduced motion. Dark mode is supported.
 - CI runs format, clippy, tests, build and lint. Dependabot checks monthly.
-- Removed the S3 deploy and its long-lived AWS keys, and stopped committing build output.
