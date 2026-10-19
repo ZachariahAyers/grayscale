@@ -1,21 +1,17 @@
-use std::fmt::format;
+//! WebAssembly bindings. Kernels live in [`kernel`] and stay free of JavaScript types.
 
-use base64::{decode, encode};
-use image::{
-    ImageOutputFormat::Png,
-    load_from_memory,
-};
-use wasm_bindgen::prelude::wasm_bindgen;
+pub mod kernel;
 
+use wasm_bindgen::prelude::*;
+
+/// Returns a grayscale copy of 8-bit RGBA pixels, as read from `ImageData.data`.
+///
+/// # Errors
+///
+/// Throws a JavaScript `Error` when the length is not a multiple of four.
 #[wasm_bindgen]
-pub fn grayscale(encoded_file: &str) -> String {
-    let base64_to_vector = decode(encoded_file).unwrap();
-    let mut image = load_from_memory(&base64_to_vector).unwrap();
-    image = image.grayscale();
-
-    let mut buffer = vec![];
-    image.write_to(&mut buffer, Png).unwrap();
-    let encoded_img = encode(&buffer);
-    let data_url = format!("data:image/png;base64,{}", encoded_img);
-    return data_url;
+pub fn grayscale(rgba: &[u8]) -> Result<Vec<u8>, JsError> {
+    let mut pixels = rgba.to_vec();
+    kernel::grayscale_rgba(&mut pixels)?;
+    Ok(pixels)
 }

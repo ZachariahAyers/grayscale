@@ -1,5 +1,4 @@
 /target
-/Cargo.lock
-.idea
-node_modules
-dist
+/node_modules
+/pkg
+/dist
