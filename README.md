@@ -4,6 +4,8 @@
 
 A web app that converts a PNG to grayscale in your browser, with no upload.
 
+Live demo: [ayers.repair/opensource/grayscale](https://ayers.repair/opensource/grayscale/).
+
 ## Features
 
 - Converts a PNG image to grayscale
