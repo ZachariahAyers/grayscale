@@ -1,30 +1,32 @@
 {
-  "name": "wasm-image-processing",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "webpack serve --mode=development",
-    "build": "webpack --mode=production"
-  },
-  "keywords": [],
-  "author": {
-    "name": "Zachariah Ayers",
-    "email": "zach@meridianvega.com",
-    "company": "Meridian Vega"
-  },
+  "name": "grayscale",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Convert images to grayscale in the browser with a Rust kernel compiled to WebAssembly.",
   "license": "Apache-2.0",
+  "author": "Zachariah Ayers (https://ayers.repair)",
+  "repository": "github:ZachariahAyers/grayscale",
+  "type": "module",
   "engines": {
-    "node": "22.20.0"
+    "node": "^22.13.0 || >=24"
+  },
+  "scripts": {
+    "wasm": "wasm-pack build --target web",
+    "dev": "npm run wasm -- --dev && vite",
+    "build": "npm run wasm && tsc && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc",
+    "lint": "eslint ."
   },
   "devDependencies": {
-    "@wasm-tool/wasm-pack-plugin": "^1.7.0",
-    "html-webpack-plugin": "^5.6.0",
-    "webpack": "^5.95.0",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.1.0"
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.13.0",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.71.2",
+    "vite": "^8.3.4",
+    "wasm-pack": "^0.15.0"
   },
   "dependencies": {
-    "wasm-pack": "^0.13.1"
+    "@fontsource/pacifico": "^5.3.0"
   }
 }

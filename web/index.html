@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Convert a PNG to grayscale in your browser. The image never leaves your device.">
+    <title>Grayscale</title>
+    <script type="module" src="./src/main.ts"></script>
+  </head>
+  <body>
+    <div class="stripes" aria-hidden="true">
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+    </div>
+    <main class="card">
+      <h1>Grayscale</h1>
+      <p>Need to quickly convert an image to grayscale?<br>Pick a PNG below. It never leaves your browser.</p>
+      <label class="upload">
+        <input type="file" id="upload" class="visually-hidden" accept="image/png" disabled>
+        Upload PNG image
+      </label>
+      <p id="status" class="status" role="status"></p>
+      <img id="result" class="result" alt="" hidden>
+    </main>
+  </body>
+</html>

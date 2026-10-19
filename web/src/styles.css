@@ -1,0 +1,158 @@
+:root {
+  --page: #f4f4f5;
+  --card: rgb(255 255 255 / 95%);
+  --text: #18181b;
+  --muted: #52525b;
+  --border: #e4e4e7;
+  --stripe-a: rgb(42 41 41 / 60%);
+  --stripe-b: #234c6e;
+  --action: #1e3a8a;
+  --action-hover: #1e40af;
+  --action-text: #fff;
+  --focus: #f59e0b;
+  --error: #b91c1c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #09090b;
+    --card: rgb(24 24 27 / 95%);
+    --text: #fafafa;
+    --muted: #a1a1aa;
+    --border: #3f3f46;
+    --error: #f87171;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: var(--page);
+  color: var(--text);
+  font: 1rem/1.5 system-ui, sans-serif;
+}
+
+.stripes {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+.stripe {
+  position: absolute;
+  inset: 0 -50%;
+  opacity: 0.5;
+  background-image: linear-gradient(-60deg, var(--stripe-a) 50%, var(--stripe-b) 50%);
+  animation: slide 10s ease-in-out infinite alternate;
+}
+
+.stripe:nth-child(2) {
+  animation-direction: alternate-reverse;
+  animation-duration: 4s;
+}
+
+.stripe:nth-child(3) {
+  animation-duration: 5s;
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(-25%);
+  }
+
+  to {
+    transform: translateX(25%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stripe {
+    animation: none;
+  }
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 42rem;
+  padding: 2.5rem;
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%);
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 2rem;
+  font: 400 3rem/1 Pacifico, cursive;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+.upload {
+  display: block;
+  margin-bottom: 1rem;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  background: var(--action);
+  color: var(--action-text);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.upload:hover {
+  background: var(--action-hover);
+}
+
+.upload:focus-within {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.upload:has(:disabled) {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.status {
+  color: var(--muted);
+}
+
+.status:empty {
+  display: none;
+}
+
+.status.error {
+  color: var(--error);
+}
+
+.result {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.result[hidden] {
+  display: none;
+}
