@@ -38,7 +38,7 @@ Luma uses the Rec. 709 weights (0.2126, 0.7152, 0.0722) in integer form, the sam
 
 ## Tooling
 
-- Rust: stable toolchain and the `wasm32-unknown-unknown` target, pinned in `rust-toolchain.toml`; edition 2024; clippy pedantic; `unsafe_code` forbidden.
+- Rust: toolchain 1.99.1 and the `wasm32-unknown-unknown` target, pinned in `rust-toolchain.toml`; edition 2024; clippy pedantic; `unsafe_code` forbidden.
 - Web: Vite, TypeScript in strict mode, ESLint with `typescript-eslint` strict type-checked rules.
 - CI (`.github/workflows/ci.yml`): format, clippy for host and wasm, Rust tests, wasm tests, build, lint.
 - Dependabot: monthly, grouped, for cargo, npm and GitHub Actions.
