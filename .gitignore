@@ -2,3 +2,5 @@
 /node_modules
 /pkg
 /dist
+.claude/settings.local.json
+CLAUDE.local.md
