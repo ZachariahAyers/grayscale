@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # Installs the toolchain, components and wasm target named in rust-toolchain.toml.
+      - run: rustup toolchain install
+
+      - uses: Swatinem/rust-cache@v2
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Format
+        run: cargo fmt --check
+
+      - name: Clippy (host and wasm)
+        run: |
+          cargo clippy --all-targets -- -D warnings
+          cargo clippy --all-targets --target wasm32-unknown-unknown -- -D warnings
+
+      - name: Rust tests
+        run: cargo test
+
+      - name: WebAssembly tests
+        run: npx wasm-pack test --node --test wasm
+
+      - name: Build
+        run: npm run build
+
+      - name: Lint
+        run: npm run lint
