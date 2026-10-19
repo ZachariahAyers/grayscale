@@ -1,70 +1,52 @@
 # Grayscale
 
-A high-performance image processing application using WebAssembly and Rust for client-side image manipulation.
+Convert a PNG to grayscale in your browser. The image is processed on your device by Rust compiled to WebAssembly, and it is never uploaded anywhere.
 
-[View Portfolio](https://zachayers.io) | [Live Demo](https://www.grayscale.zachayers.io)
+By [Zachariah Ayers](https://ayers.repair) · [GitHub](https://github.com/ZachariahAyers)
 
-## About
+## Why
 
-Grayscale converts images to grayscale entirely in the browser using WebAssembly compiled from Rust, achieving near-native performance without server-side processing. Demonstrates seamless integration between JavaScript, Rust, and WebAssembly with a modern Tailwind CSS interface.
+Converting an image should not need a server, an account or an upload. The browser already decodes and encodes images well. The one step that is pure computation, turning every pixel into its luma, is a small Rust function compiled to WebAssembly and tested on its own.
 
-## Built With
+## Stack
 
-- Rust
-- WebAssembly (wasm-bindgen)
-- JavaScript (ES6+)
-- Webpack
-- Tailwind CSS
-- HTML5 File API
+- Rust (edition 2024) and wasm-bindgen, built with wasm-pack
+- TypeScript on Vite
+- Canvas APIs for decoding and encoding: `createImageBitmap`, `OffscreenCanvas`
+- rustfmt, clippy, ESLint with typescript-eslint, and GitHub Actions CI
 
-## Getting Started
+## Run it
 
-### Prerequisites
-
-- Node.js 14.x or higher
-- Rust (stable toolchain)
-- wasm-pack (`cargo install wasm-pack`)
-
-### Installation
+You need Node.js 22.13 or later and [rustup](https://rustup.rs). The toolchain and the WebAssembly target come from `rust-toolchain.toml`. wasm-pack is installed by `npm ci`.
 
 ```bash
-git clone https://github.com/N73311/grayscale.git
+git clone https://github.com/ZachariahAyers/grayscale.git
 cd grayscale
-npm install
-wasm-pack build --target web --out-dir pkg
+npm ci
+npm run dev        # dev server with a debug build of the kernel
+npm run build      # production build in dist/
 ```
 
-### Development
+Checks:
 
 ```bash
-npm run dev
+cargo fmt --check
+cargo clippy --all-targets -- -D warnings
+cargo test                              # kernel unit tests
+npx wasm-pack test --node --test wasm   # the exported API, in WebAssembly
+npm run lint                            # after a build, which generates pkg/
 ```
 
-Runs development server at `http://localhost:8080`.
-
-### Build
-
-```bash
-npm run build
-```
-
-Creates optimized production build in `dist/` directory.
-
-## Project Structure
+## Structure
 
 ```
-grayscale/
-├── src/           # Rust source code
-├── public/        # HTML and JavaScript
-├── pkg/           # Generated WebAssembly
-├── Cargo.toml     # Rust dependencies
-└── package.json   # Node dependencies
+src/kernel.rs        pixel kernels and their unit tests
+src/lib.rs           the WebAssembly export
+tests/wasm.rs        tests across the JavaScript boundary
+web/                 the page: index.html, src/main.ts, src/styles.css
+docs/ARCHITECTURE.md how a file becomes a grayscale image
 ```
 
 ## License
 
-Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for details.
-
-## Author
-
-Zachariah Ayers - [zachayers.io](https://zachayers.io)
+Apache License 2.0. See [LICENSE](LICENSE).
