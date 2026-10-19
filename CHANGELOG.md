@@ -1,10 +1,17 @@
 # Changelog
 
+## Unreleased
+
+- A live demo at ayers.repair/opensource/grayscale/, published from `ci.yml` after the checks pass on `main`.
+- The kernel walks pixels as fixed four-byte chunks, as clippy now requires. Behaviour is unchanged.
+- `rust-toolchain.toml` pins Rust 1.99.1 instead of following `stable`.
+- The package description says PNG, the only format the page accepts.
+
 ## 2.0.0
 
 A rebuild on the current toolchain. Same purpose: upload a PNG, see it in grayscale.
 
-- Rust edition 2024 on the stable toolchain, pinned with `rust-toolchain.toml`.
+- Rust edition 2024, with the toolchain pinned to an exact version in `rust-toolchain.toml`.
 - The kernel works on raw RGBA pixels. The browser decodes and encodes the image, so the `image` and `base64` crates and the base64 round trip are gone.
 - Invalid input throws a JavaScript error instead of panicking the module.
 - Unit tests for the kernel, plus wasm-bindgen tests for the exported function.
