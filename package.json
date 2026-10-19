@@ -2,7 +2,7 @@
   "name": "grayscale",
   "version": "2.0.0",
   "private": true,
-  "description": "Convert images to grayscale in the browser with a Rust kernel compiled to WebAssembly.",
+  "description": "Convert PNG images to grayscale in the browser with a Rust kernel compiled to WebAssembly.",
   "license": "Apache-2.0",
   "author": "Zachariah Ayers (https://ayers.repair)",
   "repository": "github:ZachariahAyers/grayscale",
