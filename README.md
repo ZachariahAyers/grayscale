@@ -1,52 +1,47 @@
 # Grayscale
 
-Convert a PNG to grayscale in your browser. The image is processed on your device by Rust compiled to WebAssembly, and it is never uploaded anywhere.
+[![CI](https://github.com/ZachariahAyers/grayscale/actions/workflows/ci.yml/badge.svg)](https://github.com/ZachariahAyers/grayscale/actions/workflows/ci.yml)
 
-By [Zachariah Ayers](https://ayers.repair) · [GitHub](https://github.com/ZachariahAyers)
+A web app that converts a PNG to grayscale in your browser, with no upload.
 
-## Why
+## Features
 
-Converting an image should not need a server, an account or an upload. The browser already decodes and encodes images well. The one step that is pure computation, turning every pixel into its luma, is a small Rust function compiled to WebAssembly and tested on its own.
+- Converts a PNG image to grayscale
+- Runs entirely on your device; the image is never uploaded
+- Needs no account and no server
 
-## Stack
+## Tech stack
 
-- Rust (edition 2024) and wasm-bindgen, built with wasm-pack
-- TypeScript on Vite
-- Canvas APIs for decoding and encoding: `createImageBitmap`, `OffscreenCanvas`
-- rustfmt, clippy, ESLint with typescript-eslint, and GitHub Actions CI
+Rust, WebAssembly (wasm-bindgen, wasm-pack), TypeScript, Vite.
 
-## Run it
+## Getting started
 
-You need Node.js 22.13 or later and [rustup](https://rustup.rs). The toolchain and the WebAssembly target come from `rust-toolchain.toml`. wasm-pack is installed by `npm ci`.
+Requires Node.js 22.13 or newer and [rustup](https://rustup.rs). The Rust toolchain and WebAssembly target are set by `rust-toolchain.toml`.
 
 ```bash
 git clone https://github.com/ZachariahAyers/grayscale.git
 cd grayscale
 npm ci
-npm run dev        # dev server with a debug build of the kernel
-npm run build      # production build in dist/
+npm run dev
 ```
 
-Checks:
+## Development
 
 ```bash
 cargo fmt --check
 cargo clippy --all-targets -- -D warnings
-cargo test                              # kernel unit tests
-npx wasm-pack test --node --test wasm   # the exported API, in WebAssembly
-npm run lint                            # after a build, which generates pkg/
+cargo test
+npx wasm-pack test --node --test wasm
+npm run build
+npm run lint
 ```
 
-## Structure
-
-```
-src/kernel.rs        pixel kernels and their unit tests
-src/lib.rs           the WebAssembly export
-tests/wasm.rs        tests across the JavaScript boundary
-web/                 the page: index.html, src/main.ts, src/styles.css
-docs/ARCHITECTURE.md how a file becomes a grayscale image
-```
+How it is put together: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## License
 
 Apache License 2.0. See [LICENSE](LICENSE).
+
+---
+
+Built by [Zachariah Ayers](https://ayers.repair).
