@@ -9,7 +9,7 @@
 
 ## 2.0.0
 
-A rebuild on the current toolchain. Same purpose: upload a PNG, see it in grayscale.
+Built on the current toolchain: upload a PNG, see it in grayscale.
 
 - Rust edition 2024, with the toolchain pinned to an exact version in `rust-toolchain.toml`.
 - The kernel works on raw RGBA pixels. The browser decodes and encodes the image, so the `image` and `base64` crates and the base64 round trip are gone.
@@ -20,7 +20,3 @@ A rebuild on the current toolchain. Same purpose: upload a PNG, see it in graysc
 - The upload control works from the keyboard. Errors are announced in a live status line. Animation stops under reduced motion. Dark mode is supported.
 - CI runs format, clippy, tests, build and lint. Dependabot checks monthly.
 - Removed the S3 deploy and its long-lived AWS keys, and stopped committing build output.
-
-## 1.0.0
-
-The first version: a webpack page that sent a base64 PNG to Rust, which decoded it with the `image` crate, converted it to grayscale and returned a PNG data URL.

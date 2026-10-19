@@ -24,7 +24,7 @@ The browser does the decoding and encoding it already does well. Rust does only 
 | `src/lib.rs` | `grayscale(&[u8]) -> Result<Vec<u8>, JsError>`, the only export. It copies the input, runs the kernel, and turns a kernel error into a thrown JS `Error`. |
 | `tests/wasm.rs` | `wasm-bindgen-test` tests of the export, run under Node by `wasm-pack test --node`. |
 
-Luma uses the Rec. 709 weights (0.2126, 0.7152, 0.0722) in integer form, the same weights v1 used through the `image` crate. Alpha is kept as is.
+Luma uses the Rec. 709 weights (0.2126, 0.7152, 0.0722) in integer form. Alpha is kept as is.
 
 `wasm-pack build --target web` writes `pkg/`: an ES module whose default export, `init()`, fetches the `.wasm` file next to it. Vite bundles that file as a static asset.
 
